@@ -16,6 +16,18 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null)
+        {
+            Intent intent = new Intent(MainActivity.this, homepage.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -23,14 +35,9 @@ public class MainActivity extends AppCompatActivity {
         login = findViewById(R.id.btnlogin);
         register = findViewById(R.id.btnregister);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (firebaseUser != null)
-        {
-            Intent intent = new Intent(MainActivity.this, homepage.class);
-            startActivity(intent);
-            finish();
-        }
+
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
