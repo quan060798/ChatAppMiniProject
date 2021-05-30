@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +48,7 @@ public class Register extends AppCompatActivity {
     //private static final int IMAGE_REQUEST = 1;
     private Uri imageuri;
     private StorageTask uploadTask;
+    private String imagefirestoreurl = "default";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class Register extends AppCompatActivity {
         btnchoose = findViewById(R.id.choose);
         profilepic = findViewById(R.id.profilepic);
 
+
         btnchoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,30 +79,16 @@ public class Register extends AppCompatActivity {
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_username = username.getText().toString();
-                String txt_phone = phone.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
-                String txt_confirmpass = confirmpass.getText().toString();
 
-                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_phone) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_confirmpass)) {
-                    Toast.makeText(Register.this, "All field are required", Toast.LENGTH_SHORT).show();
-                } else if (txt_password.length() < 6) {
-                    Toast.makeText(Register.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
-                } else if (txt_phone.length() < 6 || txt_phone.length() > 12 ) {
-                    Toast.makeText(Register.this, "The phone number is invalid.", Toast.LENGTH_SHORT).show();
-                } else if (!txt_password.equals(txt_confirmpass)) {
-                    Toast.makeText(Register.this, "The password is different.", Toast.LENGTH_SHORT).show();
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()) {
-                    Toast.makeText(getApplicationContext(), "Please provide valid email", Toast.LENGTH_SHORT).show();
-                } else
-                    register(txt_username, txt_email, txt_phone, txt_password, txt_confirmpass);
 
                 if(uploadTask !=null && uploadTask.isInProgress())
                 {
                     Toast.makeText(Register.this, "Uploading", Toast.LENGTH_LONG).show();
                 } else
+                {
                     Fileuploader();
+
+                }
             }
         });
 
@@ -120,7 +109,29 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //Uri downloadUrl = Uri.parse(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                        //Toast.makeText(Register.this, "Image Uploaded successfully", Toast.LENGTH_LONG).show();
+
+                        imagefirestoreurl = taskSnapshot.getUploadSessionUri().toString();
+                        //Toast.makeText(Register.this, Register.this.imagefirestoreurl, Toast.LENGTH_LONG).show();
+                        System.out.println("Images line in upload success: " + imagefirestoreurl);
+                        String txt_username = username.getText().toString();
+                        String txt_phone = phone.getText().toString();
+                        String txt_email = email.getText().toString();
+                        String txt_password = password.getText().toString();
+                        String txt_confirmpass = confirmpass.getText().toString();
+                        if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_phone) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_confirmpass)) {
+                            Toast.makeText(Register.this, "All field are required", Toast.LENGTH_SHORT).show();
+                        } else if (txt_password.length() < 6) {
+                            Toast.makeText(Register.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
+                        } else if (txt_phone.length() < 6 || txt_phone.length() > 12 ) {
+                            Toast.makeText(Register.this, "The phone number is invalid.", Toast.LENGTH_SHORT).show();
+                        } else if (!txt_password.equals(txt_confirmpass)) {
+                            Toast.makeText(Register.this, "The password is different.", Toast.LENGTH_SHORT).show();
+                        } else if (!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()) {
+                            Toast.makeText(getApplicationContext(), "Please provide valid email", Toast.LENGTH_SHORT).show();
+                        } else
+                        {
+                            register(txt_username, txt_email, txt_phone, txt_password, txt_confirmpass);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -136,7 +147,7 @@ public class Register extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"),1);
     }
 
     @Override
@@ -164,7 +175,7 @@ public class Register extends AppCompatActivity {
                             hashMap.put("username", username);
                             hashMap.put("phone", phone);
                             hashMap.put("email", email);
-                            hashMap.put("imageURL", String.valueOf(imageuri));
+                            hashMap.put("imageURL", Register.this.imagefirestoreurl);
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -177,6 +188,7 @@ public class Register extends AppCompatActivity {
                             });
 
                             Toast.makeText(Register.this, "Registration done.",Toast.LENGTH_SHORT).show();
+                            System.out.println("Image line in register: " + Register.this.imagefirestoreurl);
                             Intent intent2main = new Intent(Register.this, MainActivity.class);
                             startActivity(intent2main);
 
