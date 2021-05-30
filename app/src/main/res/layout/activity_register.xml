@@ -24,7 +24,7 @@
         android:layout_width="92dp"
         android:layout_height="89dp"
         android:layout_gravity="center"
-        android:background="@drawable/profilepic" />
+        android:background="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="match_parent"
