@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,10 +41,8 @@ public class Register extends AppCompatActivity {
     private Button btnregister, btnchoose;
     private ImageView profilepic;
     private EditText username, phone, email, password, confirmpass;
-
     private FirebaseAuth mAuth;
     DatabaseReference reference;
-
     StorageReference storageReference;
     //private static final int IMAGE_REQUEST = 1;
     private Uri imageuri;
@@ -54,20 +53,16 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         storageReference = FirebaseStorage.getInstance().getReference("Images");
         mAuth = FirebaseAuth.getInstance();
-
         btnregister = findViewById(R.id.register);
         username = findViewById(R.id.username);
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
         password = findViewById(R.id.pass);
         confirmpass = findViewById(R.id.pass2);
-
         btnchoose = findViewById(R.id.choose);
         profilepic = findViewById(R.id.profilepic);
-
 
         btnchoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,15 +74,12 @@ public class Register extends AppCompatActivity {
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(uploadTask !=null && uploadTask.isInProgress())
                 {
                     Toast.makeText(Register.this, "Uploading", Toast.LENGTH_LONG).show();
                 } else
                 {
                     Fileuploader();
-
                 }
             }
         });
@@ -102,16 +94,27 @@ public class Register extends AppCompatActivity {
     }
 
     private void Fileuploader() {
-        StorageReference Ref = storageReference.child(System.currentTimeMillis()+ "." + getExtension(imageuri));
 
-        uploadTask = Ref.putFile(imageuri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //Uri downloadUrl = Uri.parse(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-
-                        imagefirestoreurl = taskSnapshot.getUploadSessionUri().toString();
-                        //Toast.makeText(Register.this, Register.this.imagefirestoreurl, Toast.LENGTH_LONG).show();
+        if (imageuri != null)
+        {
+            StorageReference Ref = storageReference.child(System.currentTimeMillis()+ "." + getExtension(imageuri));
+            uploadTask = Ref.putFile(imageuri);
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>(){
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful())
+                    {
+                        throw task.getException();
+                    }
+                    return Ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful())
+                    {
+                        Uri taskresult = task.getResult();
+                        imagefirestoreurl = taskresult.toString();
                         System.out.println("Images line in upload success: " + imagefirestoreurl);
                         String txt_username = username.getText().toString();
                         String txt_phone = phone.getText().toString();
@@ -133,13 +136,14 @@ public class Register extends AppCompatActivity {
                             register(txt_username, txt_email, txt_phone, txt_password, txt_confirmpass);
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(Register.this, "Image Needed", Toast.LENGTH_LONG).show();
+        }
 
-                    }
-                });
 
     }
 
