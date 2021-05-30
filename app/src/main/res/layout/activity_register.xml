@@ -8,6 +8,9 @@
     tools:context=".Register"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/bar_layout"/>
     <TextView
         android:id="@+id/createacc"
         android:layout_width="match_parent"
@@ -80,7 +83,8 @@
         android:layout_marginTop="15dp"
         android:hint="Password *"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/pass2"
@@ -89,7 +93,8 @@
         android:layout_marginTop="15dp"
         android:hint="Confirm Password *"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/register"

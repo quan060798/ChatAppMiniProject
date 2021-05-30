@@ -3,6 +3,7 @@ package com.example.chatappminiproject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,6 +55,10 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         storageReference = FirebaseStorage.getInstance().getReference("Images");
         mAuth = FirebaseAuth.getInstance();
         btnregister = findViewById(R.id.register);
@@ -185,16 +191,15 @@ public class Register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        Toast.makeText(Register.this, "Registration done.",Toast.LENGTH_SHORT).show();
+                                        System.out.println("Image line in register: " + Register.this.imagefirestoreurl);
                                         Intent intent = new Intent (Register.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }
                             });
-
-                            Toast.makeText(Register.this, "Registration done.",Toast.LENGTH_SHORT).show();
-                            System.out.println("Image line in register: " + Register.this.imagefirestoreurl);
-                            Intent intent2main = new Intent(Register.this, MainActivity.class);
-                            startActivity(intent2main);
 
                         } else {
                             Toast.makeText(Register.this, "You cannot register with this email or phone.",Toast.LENGTH_SHORT).show();

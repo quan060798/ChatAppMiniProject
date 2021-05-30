@@ -2,6 +2,7 @@ package com.example.chatappminiproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         login = findViewById(R.id.login);
         email = findViewById(R.id.logemail);
         password = findViewById(R.id.logpass);
@@ -48,27 +53,27 @@ public class Login extends AppCompatActivity {
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                     Toast.makeText(Login.this, "Please fill in all info", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    mAuth.signInWithEmailAndPassword(txt_email, txt_password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-
-                mAuth.signInWithEmailAndPassword(txt_email, txt_password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                                    if (user.isEmailVerified()){
-                                        Intent intent = new Intent (Login.this, MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
+                                        if (user.isEmailVerified()){
+                                            Intent intent = new Intent (Login.this, homepage.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            user.sendEmailVerification();
+                                            Toast.makeText(getApplicationContext(), "Check your email to verify your account", Toast.LENGTH_LONG).show();
+                                        }
                                     } else {
-                                        user.sendEmailVerification();
-                                        Toast.makeText(getApplicationContext(), "Check your email to verify your account", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(Login.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                                }
                                 }
 
                             /*
@@ -83,7 +88,8 @@ public class Login extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Check your email to verify your account", Toast.LENGTH_LONG).show();
                             }
                            */
-                        });
+                            });
+                }
             };
         });
     };
