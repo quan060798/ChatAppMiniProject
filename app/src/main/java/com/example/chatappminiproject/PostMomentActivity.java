@@ -23,10 +23,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PostMomentActivity extends AppCompatActivity {
@@ -110,6 +114,10 @@ public class PostMomentActivity extends AppCompatActivity {
                         hashMap.put("momentimageurl", myUrl);
                         hashMap.put("description", descript.getText().toString());
                         hashMap.put("poster", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        Calendar calendar = Calendar.getInstance();
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+                        String dateText = simpleDateFormat.format(calendar.getTime());
+                        hashMap.put("uploadtime", dateText);
                         reference.child(momentid).setValue(hashMap);
                         System.out.println("Moment IMage link: " + myUrl);
                         progressDialog.dismiss();

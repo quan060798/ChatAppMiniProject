@@ -1,26 +1,24 @@
 package com.example.chatappminiproject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.chatappminiproject.Fragments.ChatsFragment;
-import com.example.chatappminiproject.Fragments.MomentsFragment;
 import com.example.chatappminiproject.Model.Users;
-import com.google.android.material.tabs.TabLayout;
+import com.example.chatappminiproject.adapter.OwnMomentAdpater;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,36 +28,76 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class homepage extends AppCompatActivity {
+public class OwnMoment extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private OwnMomentAdpater ownMomentAdpater;
 
     CircleImageView profile_pic;
     TextView username;
-
     FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    DatabaseReference reference, momentreference;
+    private List<Moments> momentsList;
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_own_moment);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
         profile_pic = findViewById(R.id.profile_image);
         username = findViewById(R.id.usernamehome);
+        back = findViewById(R.id.goback);
 
+        recyclerView = findViewById(R.id.own_recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        momentsList = new ArrayList<>();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        momentreference = FirebaseDatabase.getInstance().getReference("Moments");
+        momentreference.orderByChild("poster").equalTo(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot momentSnapshot : snapshot.getChildren())
+                {
+                    Moments moments = momentSnapshot.getValue(Moments.class);
+                    momentsList.add(moments);
+                }
+
+                ownMomentAdpater = new OwnMomentAdpater(OwnMoment.this, momentsList);
+                recyclerView.setAdapter(ownMomentAdpater);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(OwnMoment.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnMoment.this, homepage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(homepage.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(OwnMoment.this).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override
@@ -67,16 +105,6 @@ public class homepage extends AppCompatActivity {
 
             }
         });
-
-        TabLayout tabLayout = findViewById(R.id.tablayout);
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatsFragment(), "CHATS");
-        viewPagerAdapter.addFragment(new MomentsFragment(), "MOMENTS");
-
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override
@@ -91,49 +119,15 @@ public class homepage extends AppCompatActivity {
         {
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(homepage.this, MainActivity.class));
-                break;
+                startActivity(new Intent(OwnMoment.this, MainActivity.class));
+                finish();
             case R.id.own_moment:
-                Intent intent = new Intent(homepage.this, OwnMoment.class);
+                Toast.makeText(this, "Moments", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OwnMoment.this, OwnMoment.class);
                 startActivity(intent);
                 finish();
                 return true;
         }
         return false;
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
-
-        ViewPagerAdapter(FragmentManager fm)
-        {
-            super(fm);
-            this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        public void addFragment (Fragment fragment, String title)
-        {
-            fragments.add(fragment);
-            titles.add(title);
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
     }
 }

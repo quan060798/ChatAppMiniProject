@@ -9,6 +9,11 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/own_moment"
+        android:title="Your Moments"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/setting"
         android:title="Setting"
         app:showAsAction="never"/>
