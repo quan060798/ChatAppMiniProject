@@ -4,12 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.MomentsFragment"
-    android:background="#FF0000">
+    android:background="#FFFFFF">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/addmomenticon"
+            android:layout_width="138dp"
+            android:layout_height="111dp"
+            android:src="@drawable/ic_add_moment"/>
+
+        <TextView
+            android:id="@+id/tv_addmoment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Your Moment"
+            android:layout_centerHorizontal="true"
+            android:textSize="30sp"
+            android:layout_toRightOf="@+id/addmomenticon"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
 
 </FrameLayout>
