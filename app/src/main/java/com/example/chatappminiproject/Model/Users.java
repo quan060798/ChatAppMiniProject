@@ -7,14 +7,16 @@ public class Users {
     private String imageURL;
     private String phone;
     private String email;
+    private String status;
 
 
-    public Users(String id, String username, String imageURL, String phone, String email) {
+    public Users(String id, String username, String imageURL, String phone, String email, String status) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
         this.phone = phone;
         this.email = email;
+        this.status = status;
     }
 
     public Users() {
@@ -59,5 +61,13 @@ public class Users {
 
     public void setImageUrl(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

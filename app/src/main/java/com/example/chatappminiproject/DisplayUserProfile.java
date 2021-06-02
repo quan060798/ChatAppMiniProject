@@ -139,8 +139,9 @@ public class DisplayUserProfile extends AppCompatActivity {
     }
 
     private void checkFriend(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Friend").child(firebaseUser.getUid()).child("isFriend");
-        reference.addValueEventListener(new ValueEventListener() {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference references = FirebaseDatabase.getInstance().getReference().child("Friend").child(firebaseUser.getUid()).child("isFriend");
+        references.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(userid).exists()){
