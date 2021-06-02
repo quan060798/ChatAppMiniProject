@@ -41,6 +41,8 @@ public class DisplayUser extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
+
+
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<Users> mUsers;

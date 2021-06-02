@@ -1,6 +1,7 @@
 package com.example.chatappminiproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.chatappminiproject.DisplayUser;
+import com.example.chatappminiproject.DisplayUserProfile;
 import com.example.chatappminiproject.Model.Users;
 import com.example.chatappminiproject.R;
 import com.example.chatappminiproject.User;
@@ -62,7 +65,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.profile_image.setImageResource((R.mipmap.ic_launcher));
         }else{
 
-           Picasso.with(mContext).load(users.getImageUrl()).placeholder(R.mipmap.ic_launcher).fit().centerInside().into(holder.profile_image);
+           Picasso.get().load(users.getImageUrl()).placeholder(R.mipmap.ic_launcher).fit().centerInside().into(holder.profile_image);
         }
 
         isFriend(users.getId(), holder.btn_friend);
@@ -74,9 +77,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREPS", Context.MODE_PRIVATE).edit();
-                editor.putString("profileid", users.getId());
-                editor.apply();
+
+                Intent intent2userinfo = new Intent(mContext, DisplayUserProfile.class);
+                intent2userinfo.putExtra("userid",users.getId());
+                mContext.startActivity(intent2userinfo);
             }
         });
 
