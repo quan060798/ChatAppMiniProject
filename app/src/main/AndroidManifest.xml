@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatAppMiniProject">
-        <activity android:name=".DisplayUser"></activity>
+        <activity android:name=".DisplayUserProfile"></activity>
+        <activity android:name=".DisplayUser" />
         <activity android:name=".OwnMoment" />
         <activity android:name=".PostMomentActivity" />
         <activity android:name=".homepage" />

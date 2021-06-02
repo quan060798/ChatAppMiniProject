@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayUser">
+    tools:context=".DisplayUserProfile">
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -37,44 +38,40 @@
                 android:layout_marginStart="25dp"/>
         </androidx.appcompat.widget.Toolbar>
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_search"
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userprofile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher_round"
         android:layout_below="@+id/appbar"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
-
-
-<EditText
-    android:id="@+id/ed_search"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_below="@+id/appbar"
-    android:hint="Search..."
-    android:background="@color/white"
-    android:layout_marginLeft="40dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"/>
 
 
     <TextView
-        android:id="@+id/tv_userlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User List"
-        android:textSize="25sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ed_search"/>
+        android:id="@+id/otherusername"
+        android:layout_marginLeft="25dp"
+        android:text="Username"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_below="@+id/appbar"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_displayusers"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_addfriend"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_below="@+id/tv_userlist"
-        />
+
+
+
+
 
 
 </RelativeLayout>

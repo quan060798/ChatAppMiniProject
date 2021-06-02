@@ -93,6 +93,12 @@ public class homepage extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(homepage.this, MainActivity.class));
                 break;
+
+            case R.id.friend:
+                Intent intent2displayuser = new Intent(homepage.this, DisplayUser.class);
+                startActivity(intent2displayuser);
+                break;
+
             case R.id.own_moment:
                 Intent intent = new Intent(homepage.this, OwnMoment.class);
                 startActivity(intent);
