@@ -40,7 +40,7 @@ public class OwnMomentAdpater extends RecyclerView.Adapter<OwnMomentAdpater.OwnM
         Moments momentcurrent = MmomentsList.get(position);
         holder.description.setText(momentcurrent.getDescription());
         holder.time.setText(momentcurrent.getUploadtime());
-        Picasso.with(Mcontext).load(momentcurrent.getMomentimageurl()).placeholder(R.mipmap.ic_launcher).fit().centerInside().into(holder.momentphoto);
+        Picasso.get().load(momentcurrent.getMomentimageurl()).placeholder(R.mipmap.ic_launcher).fit().centerInside().into(holder.momentphoto);
     }
 
     @Override

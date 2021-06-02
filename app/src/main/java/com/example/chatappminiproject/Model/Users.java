@@ -5,15 +5,38 @@ public class Users {
     private String id;
     private String username;
     private String imageURL;
+    private String phone;
+    private String email;
+    private String status;
 
-    public Users(String id, String username, String imageURL) {
+
+    public Users(String id, String username, String imageURL, String phone, String email, String status) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
+        this.phone = phone;
+        this.email = email;
+        this.status = status;
     }
 
     public Users() {
 
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -38,5 +61,13 @@ public class Users {
 
     public void setImageUrl(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

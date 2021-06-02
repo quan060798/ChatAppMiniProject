@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisplayUser">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/MenuStyle">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernamehome"
+                android:layout_marginLeft="25dp"
+                android:text="Username"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_marginStart="25dp"/>
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_search"
+        android:layout_below="@+id/appbar"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+
+<EditText
+    android:id="@+id/ed_search"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_below="@+id/appbar"
+    android:hint="Search..."
+    android:background="@color/white"
+    android:layout_marginLeft="40dp"/>
+
+
+    <TextView
+        android:id="@+id/tv_userlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User List"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ed_search"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_displayusers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_below="@+id/tv_userlist"
+        />
+
+
+</RelativeLayout>
