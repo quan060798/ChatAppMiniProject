@@ -50,7 +50,12 @@ public class DisplayUser extends AppCompatActivity {
 
     private EditText ed_Search;
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent2displayuser = new Intent(DisplayUser.this, homepage.class);
+        startActivity(intent2displayuser);
+        //
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
