@@ -1,5 +1,6 @@
 package com.example.chatappminiproject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -44,6 +45,13 @@ public class DisplayUserProfile extends AppCompatActivity {
     private Context mContext;
     private List<Users> mUsers;
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent2displayuser = new Intent(DisplayUserProfile.this, DisplayUser.class);
+        startActivity(intent2displayuser);
+        //
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
