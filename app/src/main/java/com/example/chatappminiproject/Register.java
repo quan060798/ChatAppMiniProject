@@ -131,7 +131,7 @@ public class Register extends AppCompatActivity {
                             Toast.makeText(Register.this, "All field are required", Toast.LENGTH_SHORT).show();
                         } else if (txt_password.length() < 6) {
                             Toast.makeText(Register.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
-                        } else if (txt_phone.length() < 6 || txt_phone.length() > 12 ) {
+                        } else if (txt_phone.length() < 10 || txt_phone.length() > 11 ) {
                             Toast.makeText(Register.this, "The phone number is invalid.", Toast.LENGTH_SHORT).show();
                         } else if (!txt_password.equals(txt_confirmpass)) {
                             Toast.makeText(Register.this, "The password is different.", Toast.LENGTH_SHORT).show();

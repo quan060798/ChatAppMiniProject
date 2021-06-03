@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ public class Login extends AppCompatActivity {
 
     private Button login;
     private EditText email, password;
+    private TextView forgetPassword;
 
     private FirebaseAuth mAuth;
 
@@ -38,9 +40,17 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.login);
         email = findViewById(R.id.logemail);
         password = findViewById(R.id.logpass);
+        forgetPassword = findViewById(R.id.forgetpass);
 
         mAuth = FirebaseAuth.getInstance();
 
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2forget = new Intent(Login.this, ForgotPassword.class);
+                startActivity(intent2forget);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
