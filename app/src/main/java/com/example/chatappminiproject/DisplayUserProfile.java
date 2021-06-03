@@ -45,14 +45,6 @@ public class DisplayUserProfile extends AppCompatActivity {
     private Context mContext;
     private List<Users> mUsers;
 
-
-    @Override
-    public void onBackPressed() {
-        Intent intent2displayuser = new Intent(DisplayUserProfile.this, DisplayUser.class);
-        startActivity(intent2displayuser);
-        //
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +81,7 @@ public class DisplayUserProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(DisplayUserProfile.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(getApplicationContext()).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override
@@ -176,6 +168,11 @@ public class DisplayUserProfile extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
+
+            case R.id.homepage:
+                startActivity(new Intent(DisplayUserProfile.this, homepage.class));
+                break;
+
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(DisplayUserProfile.this, MainActivity.class));
