@@ -71,7 +71,7 @@ public class DisplayUser extends AppCompatActivity {
         ed_Search = findViewById(R.id.ed_search);
 
         mUsers = new ArrayList<>();
-        userAdapter = new UserAdapter(DisplayUser.this, mUsers);
+        userAdapter = new UserAdapter(DisplayUser.this, mUsers, true);
         recyclerView.setAdapter(userAdapter);
 
         readUsers();
@@ -169,6 +169,7 @@ public class DisplayUser extends AppCompatActivity {
 
     private void status(String status){
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
         HashMap<String, Object> hashMap = new HashMap<>();
