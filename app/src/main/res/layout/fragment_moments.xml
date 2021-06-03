@@ -28,6 +28,24 @@
             android:layout_toRightOf="@+id/addmomenticon"
             android:layout_marginTop="20dp"/>
 
+        <TextView
+            android:id="@+id/momenttile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friend's Moment"
+            android:layout_centerHorizontal="true"
+            android:textSize="30sp"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
+            android:layout_below="@id/tv_addmoment"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/other_recyler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/momenttile"
+            android:layout_marginTop="50dp"/>
+
     </RelativeLayout>
 
 

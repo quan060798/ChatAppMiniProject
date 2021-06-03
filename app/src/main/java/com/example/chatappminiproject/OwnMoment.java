@@ -97,7 +97,7 @@ public class OwnMoment extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(OwnMoment.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(getApplicationContext()).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override

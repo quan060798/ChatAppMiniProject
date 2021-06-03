@@ -4,6 +4,11 @@
 
 
     <item
+        android:id="@+id/homepage"
+        android:title="Home"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/friend"
         android:title="Friend List"
         app:showAsAction="never"/>
