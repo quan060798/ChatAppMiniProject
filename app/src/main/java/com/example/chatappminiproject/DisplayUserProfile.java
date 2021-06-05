@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,10 +36,11 @@ public class DisplayUserProfile extends AppCompatActivity {
 
     CircleImageView profile_pic, otheruser_pic;
     TextView username, other_username, phone, email;
-    Button addfriend,gochat;
+    Button addfriend;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     String userid;
+    ImageButton gochat, gocall, goemail;
 
     Intent intent;
 
@@ -63,6 +65,8 @@ public class DisplayUserProfile extends AppCompatActivity {
         email = findViewById(R.id.tv_displayemail);
         addfriend = findViewById(R.id.btn_addfriend);
         gochat = findViewById(R.id.btn_chat);
+        gocall = findViewById(R.id.btn_call);
+        goemail = findViewById(R.id.btn_email);
 
         intent = getIntent();
         userid = intent.getStringExtra("userid");
@@ -118,7 +122,33 @@ public class DisplayUserProfile extends AppCompatActivity {
             }
         });
 
+        gocall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: "+phone.getText().toString()));
+                startActivity(intent2call);
+            }
+        });
+
+
+        goemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String to = email.getText().toString();
+
+                Intent intent2email = new Intent(Intent.ACTION_VIEW);
+                intent2email.setType("text/plain");
+                intent2email.setType("message/rfc822");
+                intent2email.setData(Uri.parse("mailto:"+ to));
+
+                intent2email.putExtra(Intent.EXTRA_SUBJECT, " " );
+
+                startActivity(Intent.createChooser(intent2email,"Send Email"));
+            }
+        });
     }
+
+
 
     private void userInfo(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
