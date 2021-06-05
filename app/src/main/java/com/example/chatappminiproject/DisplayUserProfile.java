@@ -35,7 +35,7 @@ public class DisplayUserProfile extends AppCompatActivity {
 
     CircleImageView profile_pic, otheruser_pic;
     TextView username, other_username, phone, email;
-    Button addfriend;
+    Button addfriend,gochat;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     String userid;
@@ -62,9 +62,10 @@ public class DisplayUserProfile extends AppCompatActivity {
         phone = findViewById(R.id.tv_displayphone);
         email = findViewById(R.id.tv_displayemail);
         addfriend = findViewById(R.id.btn_addfriend);
+        gochat = findViewById(R.id.btn_chat);
 
         intent = getIntent();
-         userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
 
         userInfo();
 
@@ -103,6 +104,17 @@ public class DisplayUserProfile extends AppCompatActivity {
                     FirebaseDatabase.getInstance().getReference().child("Friend").child(userid).child("UserFriend").child(firebaseUser.getUid()).removeValue();
 
                 }
+            }
+        });
+
+        gochat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2chat = new Intent(DisplayUserProfile.this, MessageActivity.class);
+                intent2chat.putExtra("userid" ,userid);
+                startActivity(intent2chat);
+
+
             }
         });
 
