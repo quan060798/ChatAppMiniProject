@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.chatappminiproject.Fragments.ChatsFragment;
 import com.example.chatappminiproject.Fragments.MomentsFragment;
+import com.example.chatappminiproject.Fragments.ProfileFragment;
 import com.example.chatappminiproject.Model.Users;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,6 +74,7 @@ public class homepage extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new ChatsFragment(), "CHATS");
         viewPagerAdapter.addFragment(new MomentsFragment(), "MOMENTS");
+        viewPagerAdapter.addFragment(new ProfileFragment(),"PROFILE");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
