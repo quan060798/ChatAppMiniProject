@@ -72,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MessageActivity.this, DisplayUser.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MessageActivity.this, homepage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 

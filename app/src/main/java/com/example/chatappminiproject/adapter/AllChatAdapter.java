@@ -53,7 +53,14 @@ public class AllChatAdapter extends RecyclerView.Adapter<AllChatAdapter.ViewHold
         holder.username.setText(users.getUsername());
         Glide.with(mcontext).load(users.getImageUrl()).into(holder.profile_image);
 
-        lastMessages(users.getId(), holder.lastmessage);
+        if (ischat)
+        {
+            lastMessages(users.getId(), holder.lastmessage);
+        }
+        else {
+            holder.lastmessage.setVisibility(View.GONE);
+        }
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
