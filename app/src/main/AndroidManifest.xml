@@ -3,7 +3,7 @@
     package="com.example.chatappminiproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -14,12 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatAppMiniProject">
-        android:theme="@style/Theme.ChatAppMiniProject"
-        >
-        <activity android:name=".ManageProfile"/>
-        <activity android:name=".MessageActivity"/>
-        <activity android:name=".ForgotPassword" />
+        <activity android:name=".FingerPrint">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ManageProfile" />
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".ForgotPassword" />
         <activity android:name=".DisplayUserProfile" />
         <activity android:name=".DisplayUser" />
         <activity android:name=".OwnMoment" />
@@ -32,11 +36,7 @@
             android:name=".Login"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
