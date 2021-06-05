@@ -78,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
 
        if(ischat){
-            if(users.getStatus().equals("Online")){
+           if(String.valueOf(users.getStatus()).equals("Online")){
                 holder.img_on.setVisibility(View.VISIBLE);
                 holder.img_off.setVisibility(View.GONE);
 

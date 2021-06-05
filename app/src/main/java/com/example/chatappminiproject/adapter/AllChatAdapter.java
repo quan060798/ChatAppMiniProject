@@ -30,11 +30,13 @@ public class AllChatAdapter extends RecyclerView.Adapter<AllChatAdapter.ViewHold
 
     private Context mcontext;
     private List<Users> mUsers;
+    private  boolean ischat;
     String theLastMessage;
 
-    public AllChatAdapter(Context mcontext, List<Users> mUsers) {
+    public AllChatAdapter(Context mcontext, List<Users> mUsers,boolean ischat) {
         this.mcontext = mcontext;
         this.mUsers = mUsers;
+        this.ischat = ischat;
     }
 
     @NonNull
@@ -62,6 +64,19 @@ public class AllChatAdapter extends RecyclerView.Adapter<AllChatAdapter.ViewHold
             }
         });
 
+        if(ischat){
+            if(String.valueOf(users.getStatus()).equals("Online")){
+                holder.img_On.setVisibility(View.VISIBLE);
+                holder.img_Off.setVisibility(View.GONE);
+
+            }else{
+                holder.img_On.setVisibility(View.GONE);
+                holder.img_Off.setVisibility(View.VISIBLE);
+            }
+        }else{
+            holder.img_On.setVisibility(View.GONE);
+            holder.img_Off.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -74,12 +89,16 @@ public class AllChatAdapter extends RecyclerView.Adapter<AllChatAdapter.ViewHold
         public TextView username;
         public ImageView profile_image;
         private TextView lastmessage;
+        private ImageView img_On, img_Off;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.usernamess);
             profile_image = itemView.findViewById(R.id.profile_imagess);
             lastmessage = itemView.findViewById(R.id.lastmessage);
+            img_On = itemView.findViewById(R.id.img_On);
+            img_Off = itemView.findViewById(R.id.img_Off);
         }
     }
 
