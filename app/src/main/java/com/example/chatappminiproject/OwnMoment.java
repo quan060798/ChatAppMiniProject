@@ -97,7 +97,7 @@ public class OwnMoment extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(OwnMoment.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(getApplicationContext()).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override
@@ -117,6 +117,16 @@ public class OwnMoment extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
+
+            case R.id.homepage:
+                startActivity(new Intent(OwnMoment.this, homepage.class));
+                break;
+
+            case R.id.friend:
+                Intent intent2displayuser = new Intent(OwnMoment.this, DisplayUser.class);
+                startActivity(intent2displayuser);
+                break;
+
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(OwnMoment.this, MainActivity.class));

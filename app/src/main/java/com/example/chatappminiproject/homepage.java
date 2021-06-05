@@ -60,7 +60,7 @@ public class homepage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(homepage.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(getApplicationContext()).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override
@@ -91,6 +91,10 @@ public class homepage extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.homepage:
+                startActivity(new Intent(homepage.this, homepage.class));
+                break;
+
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(homepage.this, MainActivity.class));

@@ -43,19 +43,11 @@ public class DisplayUser extends AppCompatActivity {
     DatabaseReference reference;
 
 
-
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<Users> mUsers;
 
     private EditText ed_Search;
-
-    @Override
-    public void onBackPressed() {
-        Intent intent2displayuser = new Intent(DisplayUser.this, homepage.class);
-        startActivity(intent2displayuser);
-        //
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +68,7 @@ public class DisplayUser extends AppCompatActivity {
         ed_Search = findViewById(R.id.ed_search);
 
         mUsers = new ArrayList<>();
-        userAdapter = new UserAdapter(DisplayUser.this, mUsers);
+        userAdapter = new UserAdapter(DisplayUser.this, mUsers, false);
         recyclerView.setAdapter(userAdapter);
 
         readUsers();
@@ -106,7 +98,7 @@ public class DisplayUser extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
-                Glide.with(DisplayUser.this).load(users.getImageUrl()).into(profile_pic);
+                Glide.with(getApplicationContext()).load(users.getImageUrl()).into(profile_pic);
             }
 
             @Override
@@ -140,6 +132,7 @@ public class DisplayUser extends AppCompatActivity {
     }
 
     private void readUsers() {
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -172,7 +165,7 @@ public class DisplayUser extends AppCompatActivity {
 
     }
 
-    private void status(String status){
+  /*  private void status(String status){
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
@@ -193,7 +186,7 @@ public class DisplayUser extends AppCompatActivity {
         status("Offline");
     }
 
-
+*/
 
 
     @Override
@@ -206,6 +199,10 @@ public class DisplayUser extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.homepage:
+                startActivity(new Intent(DisplayUser.this, homepage.class));
+                break;
+
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(DisplayUser.this, MainActivity.class));
