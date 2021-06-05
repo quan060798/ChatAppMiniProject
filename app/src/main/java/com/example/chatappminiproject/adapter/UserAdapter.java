@@ -34,14 +34,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Users> mUsers;
+    private  boolean ischat;
 
     FirebaseUser firebaseUser;
 
 
 
-    public UserAdapter(Context mContext, List<Users> mUsers){
+    public UserAdapter(Context mContext, List<Users> mUsers, boolean isChat){
         this.mContext = mContext;
         this.mUsers = mUsers;
+        this.ischat = isChat;
+
     }
 
     @NonNull
@@ -61,7 +64,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.btn_friend.setVisibility(View.VISIBLE);
         holder.username.setText(users.getUsername());
 
-        if (users.getImageUrl().equals("default")){
+        if (users.getImageUrl()!= null){
             holder.profile_image.setImageResource((R.mipmap.ic_launcher));
         }else{
 
@@ -72,6 +75,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         if(users.getId().equals(firebaseUser.getUid())){
             holder.btn_friend.setVisibility(View.GONE);
+        }
+
+       if(ischat){
+            if(users.getStatus().equals("Online")){
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+
+            }else{
+                holder.img_on.setVisibility(View.GONE);
+                holder.img_off.setVisibility(View.VISIBLE);
+            }
+        }else{
+            holder.img_on.setVisibility(View.GONE);
+            holder.img_off.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +127,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public TextView username;
         public ImageView profile_image;
         public Button btn_friend;
+        private ImageView img_on, img_off;
 
 
         public  ViewHolder(View itemView){
@@ -118,6 +136,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             username = itemView.findViewById(R.id.tv_username);
             profile_image = itemView.findViewById(R.id.userprofile_image);
             btn_friend = itemView.findViewById(R.id.btn_friend);
+            img_on = itemView.findViewById(R.id.img_on);
+            img_off = itemView.findViewById(R.id.img_off);
         }
     }
 
