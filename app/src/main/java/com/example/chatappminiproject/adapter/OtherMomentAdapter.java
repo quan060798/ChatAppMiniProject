@@ -116,7 +116,7 @@ public class OtherMomentAdapter extends RecyclerView.Adapter<OtherMomentAdapter.
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(firebaseUser.getUid()).exists())
                 {
-                    imageView.setImageResource(R.drawable.ic_likeddd);
+                    imageView.setImageResource(R.drawable.ic_likesssss);
                     imageView.setTag("liked");
                 }
                 else
