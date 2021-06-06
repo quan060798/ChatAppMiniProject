@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -29,9 +30,11 @@ import static androidx.constraintlayout.motion.widget.Debug.getLocation;
 
 public class GetLocation extends AppCompatActivity {
 
-    Button btn_getlocation;
+    Button btn_getlocation, share;
     TextView tv1, tv2, tv3, tv4, tv5;
+    public String locationlink, userid;
     FusedLocationProviderClient fusedLocationProviderClient;
+    Intent intentgetuserid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,13 @@ public class GetLocation extends AppCompatActivity {
         tv3 = findViewById(R.id.tv_3);
         tv4 = findViewById(R.id.tv_4);
         tv5 = findViewById(R.id.tv_5);
+        share = findViewById(R.id.btn_sendlocation);
+        intentgetuserid = getIntent();
+        userid = intentgetuserid.getStringExtra("userid");
+        if (locationlink == null)
+        {
+            share.setVisibility(View.GONE);
+        }
 
         requestPermission();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -72,7 +82,9 @@ public class GetLocation extends AppCompatActivity {
                                 tv3.setText(Html.fromHtml("<font color='#6200EE'><b>Country : </b><bt></font>" + addresses.get(0).getCountryName()));
                                 tv4.setText(Html.fromHtml("<font color='#6200EE'><b>Locality : </b><bt></font>" + addresses.get(0).getLocality()));
                                 tv5.setText(Html.fromHtml("<font color='#6200EE'><b>Address : </b><bt></font>" + addresses.get(0).getAddressLine(0)));
-
+                                locationlink = "https://maps.google.com/?q=" + addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude();
+                                share.setVisibility(View.VISIBLE);
+                                System.out.println(locationlink);
 
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -80,6 +92,19 @@ public class GetLocation extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+
+
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GetLocation.this, MessageActivity.class);
+                intent.putExtra("location", locationlink);
+                intent.putExtra("userid", userid);
+                startActivity(intent);
             }
         });
     }

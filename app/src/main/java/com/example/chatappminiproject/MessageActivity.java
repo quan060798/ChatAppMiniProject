@@ -87,6 +87,10 @@ public class MessageActivity extends AppCompatActivity {
         final String userid = intent.getStringExtra("userid");
         useridforlist = userid;
         fuser = FirebaseAuth.getInstance().getCurrentUser();
+        if (intent.getStringExtra("location") != null)
+        {
+            text_send.setText(intent.getStringExtra("location"));
+        }
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +109,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2gogetlocat = new Intent(MessageActivity.this,GetLocation.class);
+                intent2gogetlocat.putExtra("userid", intent.getStringExtra("userid"));
                 startActivity(intent2gogetlocat);
             }
         });
