@@ -15,6 +15,13 @@ public class MainActivity extends AppCompatActivity {
     private Button login, register;
     FirebaseUser firebaseUser;
 
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        finish();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
