@@ -195,6 +195,7 @@ public class MessageActivity extends AppCompatActivity {
                 Users users = snapshot.getValue(Users.class);
                 if (notify)
                 {
+                    System.out.println("Notify is true");
                     sendNotification(receiver, users.getUsername(), msg);
                 }
                 notify = false;
@@ -218,7 +219,7 @@ public class MessageActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Token token = dataSnapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher, username+": " + message, "New Message", useridforlist);
+                    Data data = new Data(fuser.getUid(), R.drawable.chat2u, username+": " + message, "New Message", useridforlist);
                     Sender sender = new Sender(data, token.getToken());
 
                     apiService.sendNotification(sender)
