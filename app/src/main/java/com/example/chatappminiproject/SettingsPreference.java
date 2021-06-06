@@ -2,13 +2,14 @@ package com.example.chatappminiproject;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
 import com.example.chatappminiproject.Fragments.SettingsFragment;
@@ -40,17 +41,14 @@ public class SettingsPreference extends PreferenceActivity {
         }
 
         CheckBoxPreference chk_night_instant = (CheckBoxPreference)findPreference("NIGHT");
-        chk_night_instant.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference) {
+        chk_night_instant.setOnPreferenceChangeListener((Preference.OnPreferenceChangeListener) preference -> {
 
-                boolean yes = (boolean)obj;
+            boolean yes = (boolean)obj;
 
-                return true;
-            }
+            return true;
         });
 
-        ListPreference LP = (ListPreference) findPreference("ORIENTATION");
+        android.preference.Preference LP = findPreference("ORIENTATION");
         String orien =
 
 
