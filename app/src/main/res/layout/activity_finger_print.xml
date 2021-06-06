@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FingerPrint">
+
+    <ImageView
+        android:id="@+id/lock"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_lock_24" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/lock"
+        android:src="@drawable/ic_likeddd"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/AuthStat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Click Button to Authenticate"
+        android:textSize="25sp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/authbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/AuthStat"
+        android:text="AUTHENTICATE"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/usepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/authbutton"
+        android:layout_centerHorizontal="true"
+        android:text="USE PASSWORD"/>
+
+</RelativeLayout>

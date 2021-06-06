@@ -45,6 +45,7 @@ public class MessageActivity extends AppCompatActivity {
 
     ImageButton btn_send;
     EditText text_send;
+    String useridforlist;
 
     MessageAdapter messageAdapter;
     List<Chat> mchat;
@@ -70,7 +71,8 @@ public class MessageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                startActivity(new Intent(MessageActivity.this, homepage.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -82,6 +84,7 @@ public class MessageActivity extends AppCompatActivity {
 
         intent = getIntent();
         final String userid = intent.getStringExtra("userid");
+        useridforlist = userid;
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         btn_send.setOnClickListener(new View.OnClickListener() {
@@ -127,12 +130,30 @@ public class MessageActivity extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+        final String userid = intent.getStringExtra("userid");
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender",sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message",message);
 
         reference.child("Chats").push().setValue(hashMap);
+
+        //Add users to chat fragments
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid()).child(userid);
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists())
+                {
+                    chatRef.child("id").setValue(userid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void readMessages(String myid, String userid, String imageurl){

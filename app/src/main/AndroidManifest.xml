@@ -14,7 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatAppMiniProject">
-        <activity android:name=".AboutUs"></activity>
+
+        <activity android:name=".AboutUs" />
+        <activity android:name=".FingerPrint">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ManageProfile" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".ForgotPassword" />
@@ -30,11 +38,7 @@
             android:name=".Login"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
