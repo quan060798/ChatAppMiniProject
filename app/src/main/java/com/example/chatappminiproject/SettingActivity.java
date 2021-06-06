@@ -1,28 +1,32 @@
 package com.example.chatappminiproject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.preference.PreferenceManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.chatappminiproject.Fragments.ChatsFragment;
-import com.example.chatappminiproject.Fragments.MomentsFragment;
-import com.example.chatappminiproject.Fragments.ProfileFragment;
+import com.example.chatappminiproject.Fragments.SettingsFragment;
 import com.example.chatappminiproject.Model.Users;
-import com.google.android.material.tabs.TabLayout;
+import com.example.chatappminiproject.adapter.UserAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,32 +36,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class homepage extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
 
     CircleImageView profile_pic;
     TextView username;
-
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
-
+        setContentView(R.layout.activity_setting);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
-
         profile_pic = findViewById(R.id.profile_image);
         username = findViewById(R.id.usernamehome);
+
+        PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -76,19 +80,19 @@ public class homepage extends AppCompatActivity {
             }
         });
 
-        TabLayout tabLayout = findViewById(R.id.tablayout);
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatsFragment(), "CHATS");
-        viewPagerAdapter.addFragment(new MomentsFragment(), "MOMENTS");
-        viewPagerAdapter.addFragment(new ProfileFragment(),"PROFILE");
+        if(findViewById(R.id.fragment_container)!= null){
+            if(savedInstanceState != null)
+                return;
 
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+            getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
 
+
+        }
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,69 +105,30 @@ public class homepage extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.homepage:
-                startActivity(new Intent(homepage.this, homepage.class));
+                startActivity(new Intent(SettingActivity.this, homepage.class));
                 break;
 
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(homepage.this, MainActivity.class));
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
                 break;
 
             case R.id.friend:
-                Intent intent2displayuser = new Intent(homepage.this, DisplayUser.class);
+                Intent intent2displayuser = new Intent(SettingActivity.this, DisplayUser.class);
                 startActivity(intent2displayuser);
                 break;
 
             case R.id.own_moment:
-                Intent intent = new Intent(homepage.this, OwnMoment.class);
+                Intent intent = new Intent(SettingActivity.this, OwnMoment.class);
                 startActivity(intent);
                 finish();
                 return true;
 
             case R.id.setting:
-                Intent intent2setting = new Intent(homepage.this, SettingsPreference.class);
+                Intent intent2setting = new Intent(SettingActivity.this, SettingActivity.class);
                 startActivity(intent2setting);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
+                break;
         }
         return false;
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
-
-        ViewPagerAdapter(FragmentManager fm)
-        {
-            super(fm);
-            this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        public void addFragment (Fragment fragment, String title)
-        {
-            fragments.add(fragment);
-            titles.add(title);
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
     }
 }

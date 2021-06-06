@@ -10,6 +10,11 @@
     <color name="green">#05F80F</color>
     <color name="grey">#6E6B6B</color>
     <color name="blue">#2196F3</color>
+    <color name="lightmode">#E6E6E6</color>
+    <color name="nightmode">#151515</color>
+    <color name="nightmodetext">#F1F1F1</color>
+    <color name="lightmodetext">#000000</color>
+
 
 
 </resources>
