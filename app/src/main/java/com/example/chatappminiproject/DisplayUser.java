@@ -215,6 +215,11 @@ public class DisplayUser extends AppCompatActivity {
                 startActivity(intent2displayuser);
                 break;
 
+            case R.id.aboutus:
+                Intent intent2aboutus = new Intent(DisplayUser.this, AboutUs.class);
+                startActivity(intent2aboutus);
+                break;
+
             case R.id.own_moment:
                 Intent intent = new Intent(DisplayUser.this, OwnMoment.class);
                 startActivity(intent);
