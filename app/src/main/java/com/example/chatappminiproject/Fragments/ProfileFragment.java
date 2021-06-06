@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
 
     String profilePicture;
 
-    //FirebaseAuth firebaseAuth;
+
     DatabaseReference reference;
     FirebaseUser fuser;
     StorageReference storagereference;

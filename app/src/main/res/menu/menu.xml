@@ -23,6 +23,11 @@
         android:title="Setting"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/aboutus"
+        android:title="About Us"
+        app:showAsAction="never"/>
+
 
     <item
         android:id="@+id/logout"
