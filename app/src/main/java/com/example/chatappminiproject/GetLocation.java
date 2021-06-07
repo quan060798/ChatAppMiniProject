@@ -71,7 +71,6 @@ public class GetLocation extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Location> task) {
 
                         Location location = task.getResult();
-                        System.out.println(location.toString());
                         if (location != null) {
                             try {
                                 Geocoder geocoder = new Geocoder(GetLocation.this, Locale.getDefault());
