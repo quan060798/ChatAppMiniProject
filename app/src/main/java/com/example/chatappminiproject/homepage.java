@@ -11,6 +11,7 @@ import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,10 +44,13 @@ public class homepage extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
+    final int SETTINGS_ACTIVITY = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_homepage);
 
 
@@ -121,9 +125,8 @@ public class homepage extends AppCompatActivity {
                 return true;
 
             case R.id.setting:
-                Intent intent2setting = new Intent(homepage.this, SettingsPreference.class);
-                startActivity(intent2setting);
-                return true;
+                startActivityForResult(new Intent(homepage.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -166,4 +169,23 @@ public class homepage extends AppCompatActivity {
             return titles.get(position);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
+    }
+
+    public void setTheme(){
+        SharedPreferences SP=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
+    }
+
 }

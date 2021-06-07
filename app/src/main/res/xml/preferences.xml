@@ -4,26 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Enable Night Mode">
-
-        <CheckBoxPreference
-            android:title="Night Mode"
-            android:key="NIGHT"
-            android:defaultValue="false"
-            android:summaryOn="Night mode is activated"
-            android:summaryOff="Night mode is deactivated"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="Screen Orientation">
+        android:title="Change the Theme">
 
         <ListPreference
-            android:key="ORIENTATION"
-            android:defaultValue="false"
-            android:title="Orientation"
-            android:entries="@array/items_name"
-            android:entryValues="@array/items_value"/>
+            android:key="color_choices"
+            android:defaultValue="Teal"
+            android:title="Choose a theme color"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_options"
+            android:summary="Choose a theme color to be used throughout the application"/>
 
     </PreferenceCategory>
+
 
 </PreferenceScreen>

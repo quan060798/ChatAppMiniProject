@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -51,9 +55,12 @@ public class Register extends AppCompatActivity {
     private StorageTask uploadTask;
     private String imagefirestoreurl = "default";
 
+    final int SETTINGS_ACTIVITY = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_register);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -167,6 +174,9 @@ public class Register extends AppCompatActivity {
             imageuri = data.getData();
             profilepic.setImageURI(imageuri);
         }
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
     }
 
     private void register (String username, String email, String phone, String password, String confirmpass){
@@ -206,6 +216,33 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+
+            case R.id.setting:
+                startActivityForResult(new Intent(Register.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
+        }
+        return false;
+    }
+
+    public void setTheme(){
+        SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
     }
 
 

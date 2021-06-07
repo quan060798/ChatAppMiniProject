@@ -49,6 +49,6 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:text="BACK"
-        android:backgroundTint="#FF7F7F"/>
+        />
 
 </LinearLayout>

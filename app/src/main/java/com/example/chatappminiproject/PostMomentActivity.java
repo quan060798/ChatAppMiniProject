@@ -3,12 +3,16 @@ package com.example.chatappminiproject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -43,9 +47,12 @@ public class PostMomentActivity extends AppCompatActivity {
     Button post, back, choose;
     EditText descript;
 
+    final int SETTINGS_ACTIVITY = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_post_moment);
 
         momentimage = findViewById(R.id.moment_photo);
@@ -159,6 +166,9 @@ public class PostMomentActivity extends AppCompatActivity {
             imguri = data.getData();
             momentimage.setImageURI(imguri);
         }
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
     }
 
     private void FileChooser() {
@@ -166,5 +176,32 @@ public class PostMomentActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"),1);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+
+            case R.id.setting:
+                startActivityForResult(new Intent(PostMomentActivity.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
+        }
+        return false;
+    }
+
+    public void setTheme(){
+        SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
     }
 }

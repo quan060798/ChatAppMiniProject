@@ -3,15 +3,4 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="general_title">General</string>
-    <string name="general_summary">Manage general Setting of App</string>
-
-    <string name="about_app_title">About APP</string>
-    <string name="about_app_summary">App Version, Terms and conditions, privacy policy</string>
-
-    <string name="app_version_title">App Version</string>
-    <string name="app_version_summary">Current Version : 1.1</string>
-
-    <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="privacy_policy_summary">Read our privacy policy and terms.</string>
 </resources>

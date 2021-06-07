@@ -13,9 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ChatAppMiniProject"
+        android:theme="@style/DeepPurpleTheme"
         >
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".SettingsPreference"/>
         <activity android:name=".ManageProfile" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".ForgotPassword" />
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingsPreference"/>
+
 
     </application>
 
