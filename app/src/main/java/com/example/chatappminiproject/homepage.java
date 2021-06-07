@@ -7,9 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,13 +43,22 @@ public class homepage extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+
+    final int SETTINGS_ACTIVITY = 1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_homepage);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+
+        PreferenceManager.setDefaultValues(this,R.xml.preferences,false);
 
         profile_pic = findViewById(R.id.profile_image);
         username = findViewById(R.id.usernamehome);
@@ -78,6 +89,8 @@ public class homepage extends AppCompatActivity {
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
 
     }
 
@@ -115,6 +128,14 @@ public class homepage extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
+            case R.id.setting:
+                startActivityForResult(new Intent(homepage.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
         return false;
     }
@@ -153,4 +174,23 @@ public class homepage extends AppCompatActivity {
             return titles.get(position);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
+    }
+
+    public void setTheme(){
+        SharedPreferences SP=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
+    }
+
 }

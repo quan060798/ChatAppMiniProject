@@ -2,8 +2,10 @@ package com.example.chatappminiproject;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,12 +46,15 @@ public class DisplayUserProfile extends AppCompatActivity {
 
     Intent intent;
 
+    final int SETTINGS_ACTIVITY = 1;
+
     private Context mContext;
     private List<Users> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_display_user_profile);
 
 
@@ -235,8 +240,30 @@ public class DisplayUserProfile extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
+            case R.id.setting:
+                startActivityForResult(new Intent(DisplayUserProfile.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
+    }
+
+    public void setTheme(){
+        SharedPreferences SP= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
     }
 
 

@@ -1,12 +1,15 @@
 package com.example.chatappminiproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,6 +45,7 @@ public class DisplayUser extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
+    final int SETTINGS_ACTIVITY = 1;
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
@@ -52,12 +56,12 @@ public class DisplayUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_display_user);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
 
         recyclerView = findViewById(R.id.rc_displayusers);
         recyclerView.setHasFixedSize(true);
@@ -225,8 +229,33 @@ public class DisplayUser extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 return true;
+
+            case R.id.setting:
+                startActivityForResult(new Intent(DisplayUser.this, SettingsPreference.class), SETTINGS_ACTIVITY);
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SETTINGS_ACTIVITY){
+            this.recreate();
+        }
+    }
+
+    public void setTheme(){
+        SharedPreferences SP=PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if(SP.getString("color_choices","Teal").equals("Teal")){
+            setTheme(R.style.TealTheme);
+        }else {
+            setTheme(R.style.DeepPurpleTheme);
+        }
     }
 
 }
