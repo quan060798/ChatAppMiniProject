@@ -137,6 +137,12 @@ public class OwnMoment extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(OwnMoment.this, MainActivity.class));
                 finish();
+
+            case R.id.aboutus:
+                Intent intent2aboutus = new Intent(OwnMoment.this, AboutUs.class);
+                startActivity(intent2aboutus);
+                break;
+
             case R.id.own_moment:
                 Toast.makeText(this, "Moments", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OwnMoment.this, OwnMoment.class);

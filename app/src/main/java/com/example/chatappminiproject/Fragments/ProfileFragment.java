@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
 
     String profilePicture;
 
-    //FirebaseAuth firebaseAuth;
+
     DatabaseReference reference;
     FirebaseUser fuser;
     StorageReference storagereference;
@@ -114,6 +114,11 @@ public class ProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (getActivity() == null)
+                {
+                    return;
+                }
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
                 userPhone.setText(users.getPhone());

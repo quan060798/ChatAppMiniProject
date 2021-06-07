@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
     final int SETTINGS_ACTIVITY = 1;
-
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        finish();
+    }
     @Override
     protected void onStart() {
         super.onStart();

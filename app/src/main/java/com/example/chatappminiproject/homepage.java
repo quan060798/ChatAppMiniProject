@@ -118,6 +118,11 @@ public class homepage extends AppCompatActivity {
                 startActivity(intent2displayuser);
                 break;
 
+            case R.id.aboutus:
+                Intent intent2aboutus = new Intent(homepage.this, AboutUs.class);
+                startActivity(intent2aboutus);
+                break;
+
             case R.id.own_moment:
                 Intent intent = new Intent(homepage.this, OwnMoment.class);
                 startActivity(intent);

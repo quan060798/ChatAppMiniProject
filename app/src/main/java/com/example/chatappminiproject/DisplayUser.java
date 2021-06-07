@@ -72,7 +72,7 @@ public class DisplayUser extends AppCompatActivity {
         ed_Search = findViewById(R.id.ed_search);
 
         mUsers = new ArrayList<>();
-        userAdapter = new UserAdapter(DisplayUser.this, mUsers, false);
+        userAdapter = new UserAdapter(DisplayUser.this, mUsers, true);
         recyclerView.setAdapter(userAdapter);
 
         readUsers();
@@ -113,6 +113,8 @@ public class DisplayUser extends AppCompatActivity {
     }
 
     private void searchUsers(String search){
+
+
         Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username")
                 .startAt(search)
                 .endAt(search+"\uf8ff");
@@ -169,7 +171,7 @@ public class DisplayUser extends AppCompatActivity {
 
     }
 
-  /*  private void status(String status){
+  private void status(String status){
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
@@ -190,7 +192,7 @@ public class DisplayUser extends AppCompatActivity {
         status("Offline");
     }
 
-*/
+
 
 
     @Override
@@ -209,12 +211,17 @@ public class DisplayUser extends AppCompatActivity {
 
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(DisplayUser.this, MainActivity.class));
-                break;
+                startActivity(new Intent(DisplayUser.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                return true;
 
             case R.id.friend:
                 Intent intent2displayuser = new Intent(DisplayUser.this, DisplayUser.class);
                 startActivity(intent2displayuser);
+                break;
+
+            case R.id.aboutus:
+                Intent intent2aboutus = new Intent(DisplayUser.this, AboutUs.class);
+                startActivity(intent2aboutus);
                 break;
 
             case R.id.own_moment:

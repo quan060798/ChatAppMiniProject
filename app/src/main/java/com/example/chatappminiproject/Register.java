@@ -196,6 +196,7 @@ public class Register extends AppCompatActivity {
                             hashMap.put("phone", phone);
                             hashMap.put("email", email);
                             hashMap.put("imageURL", Register.this.imagefirestoreurl);
+                            hashMap.put("status","Offline");
 
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

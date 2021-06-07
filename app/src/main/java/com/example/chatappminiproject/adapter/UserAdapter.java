@@ -64,7 +64,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.btn_friend.setVisibility(View.VISIBLE);
         holder.username.setText(users.getUsername());
 
-        if (users.getImageUrl()!= null){
+        if (users.getImageUrl()== null){
             holder.profile_image.setImageResource((R.mipmap.ic_launcher));
         }else{
 
@@ -78,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         }
 
        if(ischat){
-            if(users.getStatus().equals("Online")){
+           if(String.valueOf(users.getStatus()).equals("Online")){
                 holder.img_on.setVisibility(View.VISIBLE);
                 holder.img_off.setVisibility(View.GONE);
 

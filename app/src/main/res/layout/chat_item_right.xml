@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_right"
             android:text="hello"
+            android:textIsSelectable="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
             android:textSize="18sp"
