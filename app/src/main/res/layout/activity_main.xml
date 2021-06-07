@@ -13,7 +13,7 @@
         android:id="@+id/welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to The Chat App"
+        android:text="Welcome to Chat2U"
         android:textSize="32sp"
         android:textStyle="bold"
         android:layout_marginTop="150dp"

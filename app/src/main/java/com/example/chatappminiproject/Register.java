@@ -164,18 +164,20 @@ public class Register extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"),1);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"),2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+        if (requestCode== 2 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             imageuri = data.getData();
             profilepic.setImageURI(imageuri);
+            System.out.println("Testing");
         }
         if(requestCode == SETTINGS_ACTIVITY){
             this.recreate();
+            System.out.println("Setting");
         }
     }
 

@@ -317,6 +317,30 @@ public class MessageActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
 
+            case R.id.homepage:
+                startActivity(new Intent(MessageActivity.this, homepage.class));
+                break;
+
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MessageActivity.this, MainActivity.class));
+                break;
+
+            case R.id.friend:
+                Intent intent2displayuser = new Intent(MessageActivity.this, DisplayUser.class);
+                startActivity(intent2displayuser);
+                break;
+
+            case R.id.aboutus:
+                Intent intent2aboutus = new Intent(MessageActivity.this, AboutUs.class);
+                startActivity(intent2aboutus);
+                break;
+
+            case R.id.own_moment:
+                Intent intent = new Intent(MessageActivity.this, OwnMoment.class);
+                startActivity(intent);
+                break;
+
             case R.id.setting:
                 startActivityForResult(new Intent(MessageActivity.this, SettingsPreference.class), SETTINGS_ACTIVITY);
                 break;
