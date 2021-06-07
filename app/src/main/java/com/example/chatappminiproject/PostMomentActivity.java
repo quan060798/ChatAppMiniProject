@@ -162,7 +162,7 @@ public class PostMomentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+        if (requestCode== 3 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             imguri = data.getData();
             momentimage.setImageURI(imguri);
         }
@@ -175,7 +175,7 @@ public class PostMomentActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"),1);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"),3);
     }
 
     @Override
