@@ -205,7 +205,7 @@ public class Register extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Register.this, "Registration done.",Toast.LENGTH_SHORT).show();
-                                        System.out.println("Image line in register: " + Register.this.imagefirestoreurl);
+                                        FirebaseAuth.getInstance().signOut();
                                         Intent intent = new Intent (Register.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
