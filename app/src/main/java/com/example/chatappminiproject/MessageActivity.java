@@ -59,7 +59,7 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser fuser;
     DatabaseReference reference;
 
-    ImageButton btn_send, btn_gogetlocation;
+    ImageButton btn_send, btn_gogetlocation, btn_huawei;
     EditText text_send;
     String useridforlist;
 
@@ -86,7 +86,8 @@ public class MessageActivity extends AppCompatActivity {
         username = findViewById(R.id.other_username);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.ed_sendtext);
-        btn_gogetlocation = findViewById(R.id.btn_gogetlocation);
+        //btn_gogetlocation = findViewById(R.id.btn_gogetlocation);
+        btn_huawei = findViewById(R.id.btn_hwlocation);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -131,12 +132,21 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        btn_gogetlocation.setOnClickListener(new View.OnClickListener() {
+        /*btn_gogetlocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent2gogetlocat = new Intent(MessageActivity.this,GetLocation.class);
                 intent2gogetlocat.putExtra("userid", intent.getStringExtra("userid"));
                 startActivity(intent2gogetlocat);
+            }
+        });*/
+
+        btn_huawei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intenttohwlocation = new Intent(MessageActivity.this, HuaweiLocation.class);
+                intenttohwlocation.putExtra("userid", intent.getStringExtra("userid"));
+                startActivity(intenttohwlocation);
             }
         });
 
