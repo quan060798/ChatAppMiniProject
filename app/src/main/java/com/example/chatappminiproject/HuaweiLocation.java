@@ -40,7 +40,7 @@ public class HuaweiLocation extends AppCompatActivity {
 
     Intent intentgetuserid;
     public String userid, locationtext;
-    Button btn_start, btn_stop, btn_last, btn_address;
+    Button btn_start, btn_stop, btn_last, btn_address, send;
     TextView result;
     // Define a location provider client.
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -59,7 +59,9 @@ public class HuaweiLocation extends AppCompatActivity {
         btn_stop = findViewById(R.id.stopupdatelocation_btn);
         btn_last = findViewById(R.id.getlast_btn);
         btn_address = findViewById(R.id.getaddress_btn);
+        send = findViewById(R.id.sendaddressorlocation_btn);
         result = findViewById(R.id.location_result);
+        send.setVisibility(View.GONE);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 // Create a settingsClient object.
         btn_last.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,36 @@ public class HuaweiLocation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getAddress();
+            }
+        });
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendLocationMessage();
+            }
+        });
+    }
+
+    private void sendLocationMessage() {
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location == null)
+                        {
+                            return;
+                        }
+                        String locationlink = "https://maps.google.com/?q=" + location.getLatitude() + "," + location.getLongitude();
+                        Intent intent = new Intent(HuaweiLocation.this, MessageActivity.class);
+                        intent.putExtra("location", locationlink);
+                        intent.putExtra("userid", userid);
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+
             }
         });
     }
@@ -192,6 +224,7 @@ public class HuaweiLocation extends AppCompatActivity {
                         locationtext = "Lattitude: " + location.getLatitude()+"\n Longitude: " + location.getLongitude();
                         Log.d(TAG, locationtext);
                         result.setText(locationtext);
+                        send.setVisibility(View.VISIBLE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

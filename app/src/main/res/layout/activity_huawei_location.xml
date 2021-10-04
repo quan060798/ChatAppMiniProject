@@ -48,4 +48,13 @@
         android:textColor="@color/black"
         android:layout_marginTop="50dp"/>
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendaddressorlocation_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Send location"
+        android:layout_below="@+id/location_result"/>
+
 </RelativeLayout>
