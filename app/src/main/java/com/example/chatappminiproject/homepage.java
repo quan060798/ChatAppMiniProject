@@ -1,5 +1,12 @@
 package com.example.chatappminiproject;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,14 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
-
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chatappminiproject.Fragments.ChatsFragment;
@@ -121,6 +120,11 @@ public class homepage extends AppCompatActivity {
             case R.id.aboutus:
                 Intent intent2aboutus = new Intent(homepage.this, AboutUs.class);
                 startActivity(intent2aboutus);
+                break;
+
+            case R.id.map:
+                Intent intentMap = new Intent(homepage.this, map.class);
+                startActivity(intentMap);
                 break;
 
             case R.id.own_moment:
