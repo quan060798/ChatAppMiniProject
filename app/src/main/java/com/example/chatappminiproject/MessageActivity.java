@@ -41,6 +41,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.huawei.hms.mlsdk.translate.MLTranslatorFactory;
+import com.huawei.hms.mlsdk.translate.local.MLLocalTranslateSetting;
+import com.huawei.hms.mlsdk.translate.local.MLLocalTranslator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +58,6 @@ public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-
     FirebaseUser fuser;
     DatabaseReference reference;
 
@@ -80,7 +82,6 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme();
         setContentView(R.layout.activity_message);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         profile_image = findViewById(R.id.otheruser_profile);
         username = findViewById(R.id.other_username);

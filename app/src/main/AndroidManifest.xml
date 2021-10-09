@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- check wifi state -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <meta-data
+        android:name="com.huawei.hms.ml.DEPENDENCY"
+        android:value="translate" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/chat2u"
@@ -18,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/DeepPurpleTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HuaweiLocation"></activity>
+        <activity android:name=".TranslatePage"></activity>
+        <activity android:name=".HuaweiLocation" />
         <activity android:name=".GetLocation" />
         <activity android:name=".AboutUs" />
         <activity android:name=".SettingsPreference" />
@@ -43,7 +48,7 @@
         <activity
             android:name=".Login"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <service
             android:name=".Notification.MyFirebaseIdService"
