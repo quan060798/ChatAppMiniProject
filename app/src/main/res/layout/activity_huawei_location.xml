@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HuaweiLocation">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startupdatelocation_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Start Update Location"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopupdatelocation_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Stop Update Location"
+        android:layout_below="@+id/startupdatelocation_btn"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getlast_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Get Last Location"
+        android:layout_below="@+id/stopupdatelocation_btn"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getaddress_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Get Address"
+        android:layout_below="@+id/getlast_btn"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="RESULT"
+        android:id="@+id/location_result"
+        android:layout_below="@+id/getaddress_btn"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendaddressorlocation_btn"
+        android:layout_centerHorizontal="true"
+        android:text="Send location"
+        android:layout_below="@+id/location_result"/>
+
+</RelativeLayout>

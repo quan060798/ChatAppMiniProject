@@ -30,6 +30,16 @@
             android:padding="8dp"
             android:layout_alignParentRight="true" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/translateicon"
+            android:layout_toStartOf="@id/show_message"
+            android:layout_toLeftOf="@id/show_message"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/translateintent"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -57,7 +57,7 @@
 
         <EditText
             android:id="@+id/ed_sendtext"
-            android:layout_width="317dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="40dp"
@@ -77,13 +77,15 @@
             android:background="@drawable/ic_action_name" />
 
         <ImageButton
-            android:id="@+id/btn_gogetlocation"
+            android:id="@+id/btn_hwlocation"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="2dp"
             android:layout_marginRight="2dp"
             android:src="@android:drawable/ic_dialog_map"
             app:tint="@color/teal_700" />
+
+
 
     </RelativeLayout>
 

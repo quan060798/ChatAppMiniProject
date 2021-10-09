@@ -49,6 +49,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.huawei.hms:ml-computer-translate:3.0.0.300'
+    implementation 'com.huawei.hms:ml-computer-translate-model:3.0.0.300'
     implementation 'com.huawei.hms:location:6.0.0.302'
     implementation 'com.huawei.hms:ads:3.4.47.302'
     implementation 'com.android.support:multidex:2.0.1'
